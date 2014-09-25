@@ -26,6 +26,7 @@ To parse a RAML file:
 ## TODO of what's left behind
 
 * Includes `!include file.yaml`
+* Multi Typed parameteres are not hooked yet to the document
 
 
 
