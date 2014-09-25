@@ -27,6 +27,21 @@ module Raml
             @documentation = safe_array_map(key, value) { |v| Documentation.new(v) }
           when "protocols"
             @protocols = safe_array_map(key, value) { |v| Protocol.new(:value => v) }
+          when "resourceTypes"
+            raise "not implemented"
+          when "schemas"
+            raise "not implemented"
+          when "traits"
+            raise "not implemented"
+          when "securitySchemes"
+            raise "not implemented"
+          when "securedBy"
+            raise "not implemented"
+          when /^\/.*$/ # resource
+            raise "not implemented"
+          else
+            raise ParserError.new("Unknown document option `#{key}`")
+          end
         end
       end
     end
