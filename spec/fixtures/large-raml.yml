@@ -14,6 +14,9 @@ uriParameters:
         type: string
         pattern: ^[a-zA-Z0-9][-a-zA-Z0-9]*$
         minLength: 1
+schemas:
+  - Post: schemas/post.json
+  - Comment: schemas/comment.json
 securitySchemes:
   - oauth_2_0:
       description: |

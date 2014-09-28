@@ -51,6 +51,11 @@ for different languages.
       expect(document.protocols[0].to_s).to eq("HTTP")
       expect(document.protocols[1].to_s).to eq("HTTPS")
     end
+
+    it "sets the schemas" do
+      expect(document.schemas["Post"].to_s).to eq(File.join(__dir__, "../fixtures/schemas/post.json"))
+      expect(document.schemas["Comment"].to_s).to eq(File.join(__dir__, "../fixtures/schemas/comment.json"))
+    end
   end
 
   describe "local-raml" do

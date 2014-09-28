@@ -16,12 +16,12 @@ module Raml
           when "baseUri"
             @base_uri =  BaseUri.new(:value => value)
           when "baseUriParameters"
-            @base_uri_parameters = safe_hash_map(key, value) do |k, v|
-              BaseUriParameter.new(underscore_keys(v).merge('name' => k))
+            @base_uri_parameters = safe_hash_map(key, value) do |paramName, v|
+              BaseUriParameter.new(underscore_keys(v).merge('name' => paramName))
             end
           when "uriParameters"
-            @uri_parameters = safe_hash_map(key, value) do |k, v|
-              UriParameter.new(underscore_keys(v).merge('name' => k))
+            @uri_parameters = safe_hash_map(key, value) do |paramName, v|
+              UriParameter.new(underscore_keys(v).merge('name' => paramName))
             end
           when "documentation"
             @documentation = safe_array_map(key, value) do |v|
@@ -31,9 +31,15 @@ module Raml
             @protocols = safe_array_map(key, value) do |v|
               Protocol.new(:value => v)
             end
-          when "resourceTypes"
-            raise "not implemented"
           when "schemas"
+            @schemas = {}
+            safe_array_map(key, value) do |array|
+              safe_hash_map(key, array) do |schemaName, schemaPath|
+                fullSchemaPath = File.join(File.dirname(file_path), schemaPath)
+                @schemas[schemaName] = Schema.new(:value => fullSchemaPath)
+              end
+            end
+          when "resourceTypes"
             raise "not implemented"
           when "traits"
             raise "not implemented"

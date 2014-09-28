@@ -20,6 +20,7 @@ require 'raml/named_parameter/uri_parameter'
 require 'raml/named_parameter/query_parameter'
 require 'raml/documentation'
 require 'raml/protocol'
+require 'raml/schema'
 
 module Raml
   def self.load(raml)

@@ -1,10 +1,7 @@
 module Raml
   module ParserHelper
     def parse_root(file_path)
-      path = file_path.split("/")
-      path.pop
-      path = path.join("/")
-      set_yaml_include_path(path)
+      set_yaml_include_path(File.dirname(file_path))
       YAML.load_file(file_path)
     end
 
@@ -18,7 +15,6 @@ module Raml
         result
       end
     end
-
 
     def safe_array_map(key, value, &block)
       case value
