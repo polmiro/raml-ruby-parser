@@ -1,8 +1,8 @@
 describe Raml::Document do
 
-  describe ".initialization" do
-    let(:yaml) { YAML.load(File.new(File.dirname(__FILE__) + "/../fixtures/large-raml.yml").read) }
-    let(:document) { Raml::Document.new(yaml) }
+  describe "large-raml" do
+    let(:file_path) { File.dirname(__FILE__) + "/../fixtures/large-raml.yml" }
+    let(:document) { Raml::Document.new(file_path) }
 
     it "sets the title" do
       expect(document.title.to_s).to eq("Box.com API")
@@ -50,6 +50,23 @@ for different languages.
       expect(document.protocols.length).to eq(2)
       expect(document.protocols[0].to_s).to eq("HTTP")
       expect(document.protocols[1].to_s).to eq("HTTPS")
+    end
+  end
+
+  describe "local-raml" do
+    let(:file_path) { File.dirname(__FILE__) + "/../fixtures/local.yml" }
+    let(:document) { Raml::Document.new(file_path) }
+
+    it "sets the title" do
+      expect(document.title.to_s).to eq("MyApi")
+    end
+
+    it "sets the documentation title" do
+      expect(document.documentation[0].title.to_s).to eq("Getting Started")
+    end
+
+    it "sets the documentation !include content" do
+      expect(document.documentation[0].content).to match("This is a getting started guide.")
     end
   end
 end

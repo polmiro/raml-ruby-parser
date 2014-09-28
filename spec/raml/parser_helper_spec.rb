@@ -29,7 +29,9 @@ describe Raml::ParserHelper do
     end
 
     it "returns the mapped hash block when value is an hash" do
-      hash = ParserHelperClass.new.safe_hash_map("key", { :name => "house" }) { |k, v| v.upcase }
+      hash = ParserHelperClass.new.safe_hash_map("key", { :name => "house" }) do |k, v|
+        v.upcase
+      end
       expect(hash).to eq({ :name => "HOUSE" })
     end
 

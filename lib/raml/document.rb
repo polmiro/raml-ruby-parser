@@ -4,8 +4,8 @@ module Raml
 
     attr_accessor :title, :version, :media_type, :base_uri, :base_uri_parameters, :uri_parameters, :documentation, :protocols, :secured_by, :security_protocols, :schemas, :traits, :types
 
-    def initialize(root)
-      root.each do |key, value|
+    def initialize(file_path)
+      parse_root(file_path).each do |key, value|
         case key
           when "title"
             @title = Title.new(:value => value)
@@ -24,9 +24,13 @@ module Raml
               UriParameter.new(underscore_keys(v).merge('name' => k))
             end
           when "documentation"
-            @documentation = safe_array_map(key, value) { |v| Documentation.new(v) }
+            @documentation = safe_array_map(key, value) do |v|
+              Documentation.new(v)
+            end
           when "protocols"
-            @protocols = safe_array_map(key, value) { |v| Protocol.new(:value => v) }
+            @protocols = safe_array_map(key, value) do |v|
+              Protocol.new(:value => v)
+            end
           when "resourceTypes"
             raise "not implemented"
           when "schemas"
@@ -41,7 +45,6 @@ module Raml
             raise "not implemented"
           else
             raise ParserError.new("Unknown document option `#{key}`")
-          end
         end
       end
     end

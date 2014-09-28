@@ -1,8 +1,7 @@
 module Raml
   module Parser
-    def self.parse(data)
-      @data = YAML.load(data)
-      Document.new(@data)
+    def self.parse(path)
+      Document.new(path)
     end
   end
 end

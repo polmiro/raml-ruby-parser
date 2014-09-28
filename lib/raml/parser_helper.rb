@@ -1,5 +1,24 @@
 module Raml
   module ParserHelper
+    def parse_root(file_path)
+      path = file_path.split("/")
+      path.pop
+      path = path.join("/")
+      set_yaml_include_path(path)
+      YAML.load_file(file_path)
+    end
+
+    def set_yaml_include_path(path)
+      YAML.add_domain_type("raml-include,2014", "include") do |type, val|
+        new_path = File.expand_path(path, val)
+        set_yaml_include_path(new_path)
+        file_path = File.join(new_path, val)
+        result = YAML.load_file(file_path)
+        set_yaml_include_path(path)
+        result
+      end
+    end
+
 
     def safe_array_map(key, value, &block)
       case value
