@@ -1,5 +1,5 @@
 module Raml
-  class Documentation < ParseableElement
+  class Documentation < Node
     attribute :title, String
     attribute :content, String
   end

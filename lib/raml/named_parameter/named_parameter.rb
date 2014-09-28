@@ -1,5 +1,5 @@
 module Raml
-  class NamedParameter < ParseableElement
+  class NamedParameter < Node
     TYPES = %w(string number integer date boolean file)
 
     attribute  :name, String
