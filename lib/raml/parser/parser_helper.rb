@@ -1,6 +1,18 @@
 module Raml
   module Parser
     module ParserHelper
+
+      def set_yaml_include_path(path)
+        YAML.add_domain_type("raml-include,2014", "include") do |type, val|
+          new_path = File.expand_path(path, val)
+          set_yaml_include_path(new_path)
+          file_path = File.join(new_path, val)
+          result = YAML.load_file(file_path)
+          set_yaml_include_path(path)
+          result
+        end
+      end
+
       def parse_uri_parameters(value)
         safe_hash_map("uriParameters",value) do |name, v|
           UriParameter.new(underscore_keys(v).merge(:name => name))
@@ -20,28 +32,10 @@ module Raml
       end
 
       def parse_responses(value)
-        case value
-        when nil
-          []
-        when Hash
-          value.inject({}) do |memo, (k, v)|
-            code = HttpStatusCode.new(:value => k)
-            memo[code] = ResponseParser.new(v).parse
-            memo
-          end
-        else
-          raise ParserError.new("Expected hash for '#{key}': '#{value}'")
-        end
-      end
-
-      def set_yaml_include_path(path)
-        YAML.add_domain_type("raml-include,2014", "include") do |type, val|
-          new_path = File.expand_path(path, val)
-          set_yaml_include_path(new_path)
-          file_path = File.join(new_path, val)
-          result = YAML.load_file(file_path)
-          set_yaml_include_path(path)
-          result
+        safe_hash.inject({}) do |memo, (k, v)|
+          code = HttpStatusCode.new(:value => k)
+          memo[code] = ResponseParser.new(v).parse
+          memo
         end
       end
 
@@ -57,14 +51,18 @@ module Raml
       end
 
       def safe_hash_map(key, value, &block)
+        safe_hash(key, value).inject({}) do |memo, (k, v)|
+          memo[k] = block.call(k, v)
+          memo
+        end
+      end
+
+      def safe_hash(key, value)
         case value
         when nil
           {}
         when Hash
-          value.inject({}) do |memo, (k, v)|
-            memo[k] = block.call(k, v)
-            memo
-          end
+          value
         else
           raise ParserError.new("Expected hash for '#{key}': '#{value}'")
         end

@@ -37,6 +37,7 @@ module Raml
         attributes[:type] = @name
         Method.new(attributes)
       end
+
     end
   end
 end

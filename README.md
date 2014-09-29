@@ -25,12 +25,10 @@ To parse a RAML file:
 
 ## TODO of what's left behind
 
-* Includes `!include file.yaml`
 * Multi Typed parameteres are not hooked yet to the document
-* Validate all
-* Resource types and traits
-
-
+* Validate non lexic / format
+* Validate unexpected properties
+* Resource types and traits and apply them (transformations)
 
 ```
 RamlParser.parse("path/to/your/file.raml")

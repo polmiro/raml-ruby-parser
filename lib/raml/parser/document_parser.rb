@@ -54,9 +54,9 @@ module Raml
               raise ParserError.new("Unknown document option `#{key}`")
           end
         end
-
         Document.new(attrs)
       end
+
     end
   end
 end

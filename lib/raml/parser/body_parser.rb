@@ -23,6 +23,7 @@ module Raml
         end
         Body.new(attributes)
       end
+
     end
   end
 end
