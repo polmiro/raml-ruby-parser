@@ -19,7 +19,7 @@ describe Raml::Parser do
 
   describe "large-raml" do
     let(:file_path) { File.dirname(__FILE__) + "/../fixtures/large-raml.yml" }
-    let(:document) { Raml::Parser.new(file_path).parse }
+    let(:document) { Raml::Parser.parse(file_path) }
 
     it "sets the title" do
       expect(document.title.to_s).to eq("Box.com API")
@@ -53,14 +53,7 @@ describe Raml::Parser do
     it "sets the documentation" do
       expect(document.documentation.count).to eq(1)
       expect(document.documentation[0].title).to eq("Home")
-      expect(document.documentation[0].content).to eq(<<-TEXT)
-Welcome to the _Zencoder API_ Documentation. The _Zencoder API_
-allows you to connect your application to our encoding service
-and encode videos without going through the web  interface. You
-may also benefit from one of our
-[integration libraries](https://app.zencoder.com/docs/faq/basics/libraries)
-for different languages.
-      TEXT
+      expect(document.documentation[0].content).to match("Welcome to the _Zencoder API_ Documentation")
     end
 
     it "sets the protocols" do
@@ -73,11 +66,17 @@ for different languages.
       expect(document.schemas["Post"].to_s).to eq(File.join(__dir__, "../fixtures/schemas/post.json"))
       expect(document.schemas["Comment"].to_s).to eq(File.join(__dir__, "../fixtures/schemas/comment.json"))
     end
+
+    it "sets the resources" do
+      expect(document.resources["/folders"].type).to eq("base")
+      expect(document.resources["/folders"].post.description).to match("Used to create")
+      expect(document.resources["/folders"].post.body.schema.to_s).to be_present
+    end
   end
 
   describe "local-raml" do
     let(:file_path) { File.dirname(__FILE__) + "/../fixtures/local.yml" }
-    let(:document) { Raml::Parser.new(file_path).parse }
+    let(:document) { Raml::Parser.parse(file_path) }
 
     it "sets the title" do
       expect(document.title.to_s).to eq("MyApi")

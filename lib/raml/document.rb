@@ -9,5 +9,6 @@ module Raml
     attribute :base_uri_parameters, Hash[String => BaseUriParameter], :default => {}
     attribute :uri_parameters,      Hash[String => UriParameter],     :default => {}
     attribute :schemas,             Hash[String => Schema],           :default => {}
+    attribute :resources,           Hash[String => Resource],         :default => {}
   end
 end

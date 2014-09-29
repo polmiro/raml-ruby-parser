@@ -27,6 +27,8 @@ To parse a RAML file:
 
 * Includes `!include file.yaml`
 * Multi Typed parameteres are not hooked yet to the document
+* Validate all
+* Resource types and traits
 
 
 

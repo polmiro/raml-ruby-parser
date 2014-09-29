@@ -1,7 +1,7 @@
-describe Raml::ParserHelper do
+describe Raml::Parser::ParserHelper do
 
   class ParserHelperClass
-    include Raml::ParserHelper
+    include Raml::Parser::ParserHelper
   end
 
   describe "#safe_array_map" do
