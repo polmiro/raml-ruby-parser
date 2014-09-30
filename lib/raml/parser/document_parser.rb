@@ -22,9 +22,9 @@ module Raml
             when "baseUri"
               attrs[:base_uri] =  BaseUri.new(:value => value)
             when "baseUriParameters"
-              attrs[:base_uri_parameters] = parse_base_uri_parameters(value)
+              attrs[:base_uri_parameters] = parse_base_uri_parameters(key, value)
             when "uriParameters"
-              attrs[:uri_parameters] = parse_uri_parameters(value)
+              attrs[:uri_parameters] = parse_uri_parameters(key, value)
             when "documentation"
               attrs[:documentation] = safe_array_map(key, value) do |v|
                 Documentation.new(v)

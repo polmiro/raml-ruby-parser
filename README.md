@@ -27,7 +27,7 @@ To parse a RAML file:
 
 * Multi Typed parameteres are not hooked yet to the document
 * Validate non lexic / format
-* Validate unexpected properties
+* Validate unexpected property values
 * Resource types and traits and apply them (transformations)
 
 ```

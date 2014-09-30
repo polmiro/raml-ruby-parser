@@ -13,29 +13,31 @@ module Raml
         end
       end
 
-      def parse_uri_parameters(value)
-        safe_hash_map("uriParameters",value) do |name, v|
-          UriParameter.new(underscore_keys(v).merge(:name => name))
-        end
+      def parse_base_uri_parameters(key, value)
+        parse_parameters(key, Raml::BaseUriParameter, value)
       end
 
-      def parse_form_parameters(value)
-        safe_hash_map("formParameters",value) do |name, v|
-          FormParameter.new(underscore_keys(v).merge(:name => name))
-        end
+      def parse_uri_parameters(key, value)
+        parse_parameters(key, Raml::UriParameter, value)
       end
 
-      def parse_base_uri_parameters(value)
-        safe_hash_map("baseUriParameters", value) do |name, v|
-          BaseUriParameter.new(underscore_keys(v).merge(:name => name))
+      def parse_query_parameters(key, value)
+        parse_parameters(key, Raml::QueryParameter, value)
+      end
+
+      def parse_form_parameters(key, value)
+        parse_parameters(key, Raml::FormParameter, value)
+      end
+
+      def parse_parameters(key, klass, value)
+        safe_hash_map(key, value) do |name, v|
+          klass.new(underscore_keys(v).merge(:name => name))
         end
       end
 
       def parse_responses(value)
-        safe_hash.inject({}) do |memo, (k, v)|
-          code = HttpStatusCode.new(:value => k)
-          memo[code] = ResponseParser.new(v).parse
-          memo
+        safe_hash_map("responses", value) do |name, v|
+          ResponseParser.new(v).parse
         end
       end
 

@@ -22,7 +22,7 @@ module Raml
               Protocol.new(:value => v)
             end
           when "queryParameters"
-            memo[:headers] = safe_hash_map("queryParameters", value) do |name, v|
+            memo[:query_parameters] = safe_hash_map("queryParameters", value) do |name, v|
               QueryParameter.new(underscore_keys(v).merge(:name => name))
             end
           when "body"

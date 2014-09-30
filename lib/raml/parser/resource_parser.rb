@@ -19,7 +19,7 @@ module Raml
           when "displayName", "description", "type"
             memo[key.to_s.underscore.to_sym] = value
           when "uriParameters"
-            memo[:uri_parameters] = parse_uri_parameters(value)
+            memo[:uri_parameters] = parse_uri_parameters(key, value)
           when "baseUriParameters"
             memo[:base_uri_parameters] = parse_base_uri_parameters(value)
           when *Method::METHODS

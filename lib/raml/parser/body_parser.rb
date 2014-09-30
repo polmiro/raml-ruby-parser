@@ -11,7 +11,7 @@ module Raml
         attributes = @hash.reduce({}) do |memo, (key, value)|
           case key
           when "formParameters"
-            parse_form_parameters(value)
+            memo[:form_parameters] = parse_form_parameters(key, value)
           when "example"
             memo[:example] = Example.new(:value => value)
           when "schema"
