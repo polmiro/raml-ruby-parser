@@ -22,11 +22,11 @@ module Raml
           when "queryParameters"
             memo[:query_parameters] = parse_query_parameters(key, value)
           when "body"
-            memo[:body] = BodyParser.new(value).parse
+            memo[:body] = BodyParser.new(safe_hash(key, value)).parse
           when "responses"
             memo[:responses] = parse_responses(value)
           else
-            raise ParserError.new("Unknown method option `#{key}`")
+            raise ParserError.new("Unknown option `#{key}` for method")
           end
           memo
         end

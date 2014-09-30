@@ -51,7 +51,7 @@ module Raml
             when ResourceParser::REGEXP
               attrs[:resources][key] = ResourceParser.new(key, safe_hash(key, value)).parse
             else
-              raise ParserError.new("Unknown document option `#{key}`")
+              raise ParserError.new("Unknown property `#{key}` for document")
           end
         end
         Document.new(attrs)

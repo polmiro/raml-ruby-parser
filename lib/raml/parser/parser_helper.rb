@@ -59,7 +59,7 @@ module Raml
         when Array
           value.map(&block)
         else
-          raise ParserError.new("Expected array for '#{key}': '#{value}'")
+          raise ParserError.new("Expected array for key '#{key}'. Got '#{value.class}'")
         end
       end
 
@@ -77,7 +77,7 @@ module Raml
         when Hash
           value
         else
-          raise ParserError.new("Expected hash for '#{key}': '#{value}'")
+          raise ParserError.new("Expected hash for key '#{key}'. Got '#{value.class}'")
         end
       end
 

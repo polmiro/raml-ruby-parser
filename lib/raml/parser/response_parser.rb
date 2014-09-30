@@ -17,7 +17,7 @@ module Raml
           when "headers"
             memo[:headers] = parse_headers(value)
           else
-            raise ParserError.new("Unknown method option for response `#{key}`")
+            raise ParserError.new("Unknown option `#{key}` for response")
           end
           memo
         end
