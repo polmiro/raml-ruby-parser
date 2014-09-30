@@ -31,13 +31,24 @@ module Raml
 
       def parse_parameters(key, klass, value)
         safe_hash_map(key, value) do |name, v|
-          klass.new(underscore_keys(v).merge(:name => name))
+          v = underscore_keys(v)
+          v = v.merge(:name => name)
+          klass.new(v)
         end
       end
 
       def parse_responses(value)
         safe_hash_map("responses", value) do |name, v|
+          v = safe_hash("responses", v)
           ResponseParser.new(v).parse
+        end
+      end
+
+      def parse_headers(value)
+        safe_hash_map("headers",value) do |name, v|
+          v = underscore_keys(v)
+          v = v.merge(:name => name)
+          Header.new(underscore_keys(v).merge(:name => name))
         end
       end
 

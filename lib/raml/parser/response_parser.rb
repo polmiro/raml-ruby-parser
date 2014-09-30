@@ -14,6 +14,8 @@ module Raml
             memo[key.to_s.underscore.to_sym] = value
           when "body"
             memo[:body] = BodyParser.new(value).parse
+          when "headers"
+            memo[:headers] = parse_headers(value)
           else
             raise ParserError.new("Unknown method option for response `#{key}`")
           end

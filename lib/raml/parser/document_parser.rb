@@ -27,7 +27,7 @@ module Raml
               attrs[:uri_parameters] = parse_uri_parameters(key, value)
             when "documentation"
               attrs[:documentation] = safe_array_map(key, value) do |v|
-                Documentation.new(v)
+                Documentation.new(safe_hash(key, v))
               end
             when "protocols"
               attrs[:protocols] = safe_array_map(key, value) do |v|
@@ -49,7 +49,7 @@ module Raml
             when "securedBy"
               # raise "not implemented"
             when ResourceParser::REGEXP
-              attrs[:resources][key] = ResourceParser.new(key, value).parse
+              attrs[:resources][key] = ResourceParser.new(key, safe_hash(key, value)).parse
             else
               raise ParserError.new("Unknown document option `#{key}`")
           end
