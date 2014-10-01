@@ -14,30 +14,30 @@ module Raml
         @root.each do |key, value|
           case key
             when "title"
-              attrs[:title] = Title.new(:value => value)
+              attrs[:title] = Nodes::Title.new(:value => value)
             when "version"
-              attrs[:version] = ApiVersion.new(:value => value)
+              attrs[:version] = Nodes::ApiVersion.new(:value => value)
             when "mediaType"
-              attrs[:media_type] = MediaType.new(:value => value)
+              attrs[:media_type] = Nodes::MediaType.new(:value => value)
             when "baseUri"
-              attrs[:base_uri] =  BaseUri.new(:value => value)
+              attrs[:base_uri] =  Nodes::BaseUri.new(:value => value)
             when "baseUriParameters"
               attrs[:base_uri_parameters] = parse_base_uri_parameters(key, value)
             when "uriParameters"
               attrs[:uri_parameters] = parse_uri_parameters(key, value)
             when "documentation"
               attrs[:documentation] = safe_array_map(key, value) do |v|
-                Documentation.new(safe_hash(key, v))
+                Nodes::Documentation.new(safe_hash(key, v))
               end
             when "protocols"
               attrs[:protocols] = safe_array_map(key, value) do |v|
-                Protocol.new(:value => v)
+                Nodes::Protocol.new(:value => v)
               end
             when "schemas"
               safe_array_map(key, value) do |array|
                 safe_hash_map(key, array) do |name, path|
                   schemaPath = File.join(File.dirname(@file_path), path)
-                  attrs[:schemas][name] = Schema.new(:value => schemaPath)
+                  attrs[:schemas][name] = Nodes::Schema.new(:value => schemaPath)
                 end
               end
             when "resourceTypes"
@@ -54,7 +54,7 @@ module Raml
               raise ParserError.new("Unknown property `#{key}` for document")
           end
         end
-        Document.new(attrs)
+        Nodes::Document.new(attrs)
       end
 
     end

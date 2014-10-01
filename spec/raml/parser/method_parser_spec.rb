@@ -83,7 +83,7 @@ describe Raml::Parser::MethodParser do
 
   it "parses the responses" do
     expect(method.responses.count).to eq(2)
-    expect(method.responses["200"].body).to be_a(Raml::Body)
+    expect(method.responses["200"].body).to be_a(Raml::Nodes::Body)
     expect(method.responses["503"].description).to match("The service is currently unavailable")
   end
 

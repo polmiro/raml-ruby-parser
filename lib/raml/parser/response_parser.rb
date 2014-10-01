@@ -21,7 +21,7 @@ module Raml
           end
           memo
         end
-        Response.new(attributes)
+        Nodes::Response.new(attributes)
       end
     end
   end

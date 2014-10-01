@@ -24,11 +24,11 @@ describe Raml::Parser::ParserHelper do
     end
 
     it "parses an array if uri parameters" do
-      parameters = helper.parse_parameters("uriParameters", Raml::UriParameter, YAML.load(yaml))
-      expect(parameters["communityDomain"]).to be_a(Raml::UriParameter)
+      parameters = helper.parse_parameters("uriParameters", Raml::Nodes::UriParameter, YAML.load(yaml))
+      expect(parameters["communityDomain"]).to be_a(Raml::Nodes::UriParameter)
       expect(parameters["communityDomain"].display_name).to eq("Community Domain")
       expect(parameters["communityDomain"].type).to eq("string")
-      expect(parameters["communityPath"]).to be_a(Raml::UriParameter)
+      expect(parameters["communityPath"]).to be_a(Raml::Nodes::UriParameter)
       expect(parameters["communityPath"].display_name).to eq("Community Path")
       expect(parameters["communityPath"].type).to eq("string")
       expect(parameters["communityPath"].pattern).to eq("^[a-zA-Z0-9][-a-zA-Z0-9]*$")
@@ -47,7 +47,7 @@ describe Raml::Parser::ParserHelper do
 
     it "parsers the responses" do
       responses = helper.parse_responses(response_hash)
-      expect(responses["200"]).to be_a(Raml::Response)
+      expect(responses["200"]).to be_a(Raml::Nodes::Response)
       expect(responses["200"].description).to match("The successful")
     end
   end

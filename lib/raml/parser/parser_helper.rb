@@ -14,23 +14,23 @@ module Raml
       end
 
       def parse_base_uri_parameters(key, value)
-        parse_parameters(key, Raml::BaseUriParameter, value)
+        parse_parameters(key, Raml::Nodes::BaseUriParameter, value)
       end
 
       def parse_uri_parameters(key, value)
-        parse_parameters(key, Raml::UriParameter, value)
+        parse_parameters(key, Raml::Nodes::UriParameter, value)
       end
 
       def parse_query_parameters(key, value)
-        parse_parameters(key, Raml::QueryParameter, value)
+        parse_parameters(key, Raml::Nodes::QueryParameter, value)
       end
 
       def parse_form_parameters(key, value)
-        parse_parameters(key, Raml::FormParameter, value)
+        parse_parameters(key, Raml::Nodes::FormParameter, value)
       end
 
       def parse_headers(key, value)
-        parse_parameters(key, Raml::Header, value)
+        parse_parameters(key, Raml::Nodes::Header, value)
       end
 
       def parse_parameters(key, klass, value)

@@ -4,7 +4,7 @@ describe Raml::Parser do
 
     it "returns the parsed document when succeeds" do
       document = Raml::Parser.parse(file)
-      expect(document.class).to eq(Raml::Document)
+      expect(document.class).to eq(Raml::Nodes::Document)
     end
 
     it "raises exception when file not found" do
@@ -12,7 +12,7 @@ describe Raml::Parser do
     end
 
     it "raises exception when document parsing errors occurs" do
-      allow(Raml::Document).to receive(:new).and_raise(Raml::ParserError)
+      allow(Raml::Nodes::Document).to receive(:new).and_raise(Raml::ParserError)
       expect { Raml::Parser.parse(file) }.to raise_error(Raml::ParserError)
     end
   end

@@ -17,7 +17,7 @@ module Raml
             memo[:headers] = parse_headers(key, value)
           when "protocols"
             memo[:protocols] = safe_array_map(key, value) do |v|
-              Protocol.new(:value => v)
+              Nodes::Protocol.new(:value => v)
             end
           when "queryParameters"
             memo[:query_parameters] = parse_query_parameters(key, value)
@@ -31,7 +31,7 @@ module Raml
           memo
         end
         attributes[:type] = @name
-        Method.new(attributes)
+        Nodes::Method.new(attributes)
       end
 
     end
