@@ -29,6 +29,10 @@ module Raml
         parse_parameters(key, Raml::FormParameter, value)
       end
 
+      def parse_headers(key, value)
+        parse_parameters(key, Raml::Header, value)
+      end
+
       def parse_parameters(key, klass, value)
         safe_hash_map(key, value) do |name, v|
           v = underscore_keys(v)
@@ -41,14 +45,6 @@ module Raml
         safe_hash_map("responses", value) do |name, v|
           v = safe_hash("responses", v)
           ResponseParser.new(v).parse
-        end
-      end
-
-      def parse_headers(value)
-        safe_hash_map("headers",value) do |name, v|
-          v = underscore_keys(v)
-          v = v.merge(:name => name)
-          Header.new(underscore_keys(v).merge(:name => name))
         end
       end
 

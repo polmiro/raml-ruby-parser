@@ -14,7 +14,7 @@ module Raml
           when "description"
             memo[key.to_s.underscore.to_sym] = safe_string(key, value)
           when "headers"
-            memo[:headers] = parse_headers(value)
+            memo[:headers] = parse_headers(key, value)
           when "protocols"
             memo[:protocols] = safe_array_map(key, value) do |v|
               Protocol.new(:value => v)

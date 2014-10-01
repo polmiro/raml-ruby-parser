@@ -86,4 +86,9 @@ describe Raml::Parser::MethodParser do
     expect(method.responses["200"].body).to be_a(Raml::Body)
     expect(method.responses["503"].description).to match("The service is currently unavailable")
   end
+
+  it "raises parser error when there's an unknown option" do
+    method_parser = Raml::Parser::MethodParser.new("get", :unknown => true)
+    expect { method_parser.parse }.to raise_error(Raml::ParserError)
+  end
 end

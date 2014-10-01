@@ -15,7 +15,7 @@ module Raml
           when "body"
             memo[:body] = BodyParser.new(value).parse
           when "headers"
-            memo[:headers] = parse_headers(value)
+            memo[:headers] = parse_headers(key, value)
           else
             raise ParserError.new("Unknown option `#{key}` for response")
           end

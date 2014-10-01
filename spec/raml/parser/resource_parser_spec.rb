@@ -58,4 +58,9 @@ describe Raml::Parser::ResourceParser do
   it "parses the methods" do
     expect(resource.get.description).to eq("Get the collection of jobs")
   end
+
+  it "raises parser error when there's an unknown option" do
+    resource_parser = Raml::Parser::ResourceParser.new("/jobs", :unknown => true)
+    expect { resource_parser.parse }.to raise_error(Raml::ParserError)
+  end
 end

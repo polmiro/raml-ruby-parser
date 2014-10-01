@@ -48,4 +48,9 @@ describe Raml::Parser::BodyParser do
     body = Raml::Parser::BodyParser.new(root).parse
     expect(body.schema.to_s).to match('"type": "object"')
   end
+
+  it "raises parser error when there's an unknown option" do
+    body_parser = Raml::Parser::BodyParser.new(:unknown => true)
+    expect { body_parser.parse }.to raise_error(Raml::ParserError)
+  end
 end

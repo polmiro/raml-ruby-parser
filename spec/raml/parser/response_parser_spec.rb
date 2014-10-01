@@ -43,4 +43,9 @@ describe Raml::Parser::ResponseParser do
     response = Raml::Parser::ResponseParser.new(root).parse
     expect(response.body.form_parameters.count).to eq(3)
   end
+
+  it "raises parser error when there's an unknown option" do
+    response_parser = Raml::Parser::ResponseParser.new(:unknown => true)
+    expect { response_parser.parse }.to raise_error(Raml::ParserError)
+  end
 end

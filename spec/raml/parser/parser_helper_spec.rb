@@ -36,6 +36,22 @@ describe Raml::Parser::ParserHelper do
     end
   end
 
+  describe "#parse_responses" do
+    let(:response_hash) do
+      { "200" => { "description" => "The successful input resource response" } }
+    end
+
+    it "raises ParserError when unexpected type" do
+      expect { helper.parse_responses("hello") }.to raise_error(Raml::ParserError)
+    end
+
+    it "parsers the responses" do
+      responses = helper.parse_responses(response_hash)
+      expect(responses["200"]).to be_a(Raml::Response)
+      expect(responses["200"].description).to match("The successful")
+    end
+  end
+
   describe "#safe_array_map" do
     it "returns an empty array when value nil" do
       array = helper.safe_array_map("key", nil)
