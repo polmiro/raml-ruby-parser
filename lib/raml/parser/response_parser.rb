@@ -11,7 +11,7 @@ module Raml
         attributes = @hash.reduce({}) do |memo, (key, value)|
           case key
           when "description"
-            memo[key.to_s.underscore.to_sym] = value
+            memo[key.to_s.underscore.to_sym] = safe_string(key, value)
           when "body"
             memo[:body] = BodyParser.new(value).parse
           when "headers"

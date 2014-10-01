@@ -17,7 +17,7 @@ module Raml
             memo[:resources] ||= {}
             memo[:resources][key] = self.class.new(key, safe_hash(value)).parse
           when "displayName", "description", "type"
-            memo[key.to_s.underscore.to_sym] = value
+            memo[key.to_s.underscore.to_sym] = safe_string(key, value)
           when "uriParameters"
             memo[:uri_parameters] = parse_uri_parameters(key, value)
           when "baseUriParameters"

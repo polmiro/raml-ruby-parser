@@ -81,6 +81,15 @@ module Raml
         end
       end
 
+      def safe_string(key, value)
+        case value
+        when String
+          value
+        else
+          raise ParserError.new("Expected string for key '#{key}'. Got '#{value.class}'")
+        end
+      end
+
       def underscore_keys(hash)
         hash.reduce({}) do |memo, (key, value)|
           memo[key.to_s.underscore.to_sym] = value
