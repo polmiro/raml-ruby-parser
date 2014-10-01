@@ -1,4 +1,4 @@
 module Raml
-  class Schema < ValueElement
+  class Schema < StringNode
   end
 end

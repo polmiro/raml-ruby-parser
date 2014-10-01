@@ -1,4 +1,4 @@
 module Raml
-  class ApiVersion < ValueElement
+  class ApiVersion < StringNode
   end
 end

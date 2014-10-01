@@ -1,5 +1,5 @@
 module Raml
-  class ValueElement < Node
+  class StringNode < Node
     attribute :value, String
 
     def to_s

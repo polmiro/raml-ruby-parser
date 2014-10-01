@@ -1,5 +1,5 @@
 module Raml
-  class Protocol < ValueElement
+  class Protocol < StringNode
     ALLOWED_PROTOCOLS = %w(HTTP HTTPS)
     validates :value, :inclusion => { :in => ALLOWED_PROTOCOLS }
   end

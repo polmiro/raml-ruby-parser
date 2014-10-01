@@ -1,5 +1,5 @@
-describe Raml::ValueElement do
-  let(:api_version) { Raml::ValueElement.new(:value => "v1") }
+describe Raml::StringNode do
+  let(:api_version) { Raml::StringNode.new(:value => "v1") }
 
   it "is valid" do
     expect(api_version.valid?).to eq(true)

@@ -1,4 +1,4 @@
 module Raml
-  class Example < ValueElement
+  class Example < StringNode
   end
 end

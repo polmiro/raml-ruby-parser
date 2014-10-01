@@ -1,4 +1,4 @@
 module Raml
-  class BaseUri < ValueElement
+  class BaseUri < StringNode
   end
 end

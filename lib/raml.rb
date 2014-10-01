@@ -5,7 +5,7 @@ require 'active_model'
 require 'active_support'
 require 'raml/errors'
 require 'raml/node'
-require 'raml/value_element'
+require 'raml/string_node'
 
 require 'raml/parser/parser_helper'
 require 'raml/parser/document_parser'

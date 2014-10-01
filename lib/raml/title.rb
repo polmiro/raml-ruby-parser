@@ -1,4 +1,4 @@
 module Raml
-  class Title < ValueElement
+  class Title < StringNode
   end
 end
